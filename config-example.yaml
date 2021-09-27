@@ -1,0 +1,97 @@
+max_quota_cpu: 30
+max_quota_memory: 50
+ldap_url: ldapi.sample.com
+ldap_bind_dn: cn=Manager,ou=Administrators,dc=sample,dc=com
+ldap_bind_cred:
+ldap_filter: (cn=%s)
+session_key:
+ldap_search_base:
+gin_mode: debug
+logsene_enabled: true
+max_volume_gb: 100
+aws_region: eu-central-1
+aws_nonprod_login_url:
+aws_nonprod_access_key_id:
+aws_nonprod_secret_access_key:
+aws_prod_login_url:
+aws_prod_access_key_id:
+aws_prod_secret_access_key:
+aws_s3_bucket_prefix: prefix
+sematext_api_token:
+sematext_base_url:
+logsene_discountcode:
+otc_api:
+jenkins_url:
+wzubackend_url:
+wzubackend_secret:
+
+newrelic_api_token:
+newrelic_api_account:
+openshift_chargeback_sender:
+openshift_chargeback_art:
+# This account acts as a secondary Openshift Project Admin, so it has all rights
+openshift_additional_project_admin_account:
+
+https_proxy:
+
+sso_realm:
+sso_url:
+
+uos_enabled: true
+rds_enabled: true
+
+tower:
+  base_url: https://deploy.domain.ch/api/v2/
+  username: user
+  password: pass
+  parameter_blacklist:
+    - unifiedos_creator
+  job_templates:
+    - id: 11111
+    - id: 12345
+      validate: metadata.uos_group
+
+kafka:
+  backend_url:
+  billing_url:
+
+rds:
+  # if this list is empty, all versions are shown
+  version_whitelist:
+    - 10
+    - 11
+
+uos:
+  images:
+  - label: 'RHEL 7'
+    value: 'Rhel-7-image_2020-04-21'
+  - label: 'Windows 2016'
+    value: 'Windows-2016_2020-04-21'
+  - label: 'Windows 2019'
+    value: 'Windows-2019_2020-04-21'
+
+ldap:
+  host: ldap.domain.ch
+  base: dc=domain,dc=ch
+  dn: cn=Reader,dc=domain,dc=ch
+  password: 5up3r54f3
+  group_blacklist:
+    - alleMitarbeiter
+
+openshift:
+  - id: awsdev
+    name: AWS Dev
+    url: https://master.example.com:8443
+    token: aeiaiesatehantehinartehinatenhiat
+    glusterapi:
+      url: http://glusterapi.com:2601
+      secret: someverysecuresecret
+      ips: 10.10.10.10, 10.10.10.11
+  - id: awsprod
+    name: AWS Prod
+    url: https://master.example-prod.com
+    token: aeiaiesatehantehinartehinatenhiat
+    nfsapi:
+      url: https://nfsapi.com
+      secret: s3Cr3T
+      proxy: http://nfsproxy.com:8000

@@ -1,0 +1,6 @@
+openshift/clusterPolicy-selfservice.yml
+curl.go
+Dockerfile*
+env_vars*
+README.md
+token.json

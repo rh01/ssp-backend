@@ -1,0 +1,10 @@
+[Unit]
+Description=GlusterFS API
+
+[Service]
+Type=simple
+ExecStart=/opt/glusterapi/glusterapi -poolName=your-pool -vgName=your-vg -basePath=/your/mount -secret=yoursecret -port=yourport
+User=root
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,55 @@
+apiVersion: authorization.openshift.io/v1
+kind: ClusterRole
+metadata:
+  name: ose:selfservice
+rules:
+- apiGroups:
+  - ""
+  attributeRestrictions: null
+  resources:
+  - namespaces
+  - resourcequotas
+  verbs:
+  - get
+  - update
+- apiGroups:
+  - ""
+  attributeRestrictions: null
+  resources:
+  - persistentvolumes
+  verbs:
+  - create
+  - get
+  - list
+- apiGroups:
+  - ""
+  - user.openshift.io
+  attributeRestrictions: null
+  resources:
+  - groups
+  verbs:
+  - get
+- apiGroups:
+  - rbac.authorization.k8s.io
+  - authorization.openshift.io
+  attributeRestrictions: null
+  resources:
+  - rolebindings
+  verbs:
+  - create
+  - update
+- apiGroups:
+  - ""
+  - project.openshift.io
+  attributeRestrictions: null
+  resources:
+  - projectrequests
+  verbs:
+  - create
+- apiGroups:
+  - route.openshift.io
+  attributeRestrictions: null
+  resources:
+  - routes
+  verbs:
+  - get

@@ -1,0 +1,489 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "ssp-backend"
+    },
+    "objects": [
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "ssp-backend",
+                "labels": {
+                    "app": "ssp-backend"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    }
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "app": "ssp-backend",
+                    "deploymentconfig": "ssp-backend"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "app": "ssp-backend",
+                            "deploymentconfig": "ssp-backend"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "ssp-backend",
+                                "image": "${DOCKER_IMAGE}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8000,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "TZ",
+                                        "value": "${TZ}"
+                                    },
+                                    {
+                                        "name": "MAX_QUOTA_CPU",
+                                        "value": "${MAX_QUOTA_CPU}"
+                                    },
+                                    {
+                                        "name": "MAX_QUOTA_MEMORY",
+                                        "value": "${MAX_QUOTA_MEMORY}"
+                                    },
+                                    {
+                                        "name": "LDAP_URL",
+                                        "value": "${LDAP_URL}"
+                                    },
+                                    {
+                                        "name": "LDAP_BIND_DN",
+                                        "value": "${LDAP_BIND_DN}"
+                                    },
+                                    {
+                                        "name": "LDAP_BIND_CRED",
+                                        "value": "${LDAP_BIND_CRED}"
+                                    },
+                                    {
+                                        "name": "LDAP_FILTER",
+                                        "value": "${LDAP_FILTER}"
+                                    },
+                                    {
+                                        "name": "SESSION_KEY",
+                                        "value": "${SESSION_KEY}"
+                                    },
+                                    {
+                                        "name": "LDAP_SEARCH_BASE",
+                                        "value": "${LDAP_SEARCH_BASE}"
+                                    },
+                                    {
+                                        "name": "GIN_MODE",
+                                        "value": "${GIN_MODE}"
+                                    },
+                                    {
+                                        "name": "MAX_VOLUME_GB",
+                                        "value": "${MAX_VOLUME_GB}"
+                                    },
+                                    {
+                                        "name": "AWS_S3_BUCKET_PREFIX",
+                                        "value": "${AWS_S3_BUCKET_PREFIX}"
+                                    },
+                                    {
+                                        "name": "AWS_NONPROD_SECRET_ACCESS_KEY",
+                                        "value": "${AWS_NONPROD_SECRET_ACCESS_KEY}"
+                                    },
+                                    {
+                                        "name": "AWS_REGION",
+                                        "value": "${AWS_REGION}"
+                                    },
+                                    {
+                                        "name": "AWS_PROD_ACCESS_KEY_ID",
+                                        "value": "${AWS_PROD_ACCESS_KEY_ID}"
+                                    },
+                                    {
+                                        "name": "AWS_PROD_SECRET_ACCESS_KEY",
+                                        "value": "${AWS_PROD_SECRET_ACCESS_KEY}"
+                                    },
+                                    {
+                                        "name": "AWS_NONPROD_ACCESS_KEY_ID",
+                                        "value": "${AWS_NONPROD_ACCESS_KEY_ID}"
+                                    },
+                                    {
+                                        "name": "SEMATEXT_API_TOKEN",
+                                        "value": "${SEMATEXT_API_TOKEN}"
+                                    },
+                                    {
+                                        "name": "SEMATEXT_BASE_URL",
+                                        "value": "${SEMATEXT_BASE_URL}"
+                                    },
+                                    {
+                                        "name": "LOGSENE_DISCOUNTCODE",
+                                        "value": "${LOGSENE_DISCOUNTCODE}"
+                                    },
+                                    {
+                                        "name": "JENKINS_URL",
+                                        "value": "${JENKINS_URL}"
+                                    },
+                                    {
+                                        "name": "WZUBACKEND_URL",
+                                        "value": "${WZUBACKEND_URL}"
+                                    },
+                                    {
+                                        "name": "WZUBACKEND_SECRET",
+                                        "value": "${WZUBACKEND_SECRET}"
+                                    },
+                                    {
+                                        "name": "AWS_NONPROD_LOGIN_URL",
+                                        "value": "${AWS_NONPROD_LOGIN_URL}"
+                                    },
+                                    {
+                                        "name": "AWS_PROD_LOGIN_URL",
+                                        "value": "${AWS_PROD_LOGIN_URL}"
+                                    },
+                                    {
+                                        "name": "NEWRELIC_API_TOKEN",
+                                        "value": "${NEWRELIC_API_TOKEN}"
+                                    },
+                                    {
+                                        "name": "NEWRELIC_API_ACCOUNT",
+                                        "value": "${NEWRELIC_API_ACCOUNT}"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_CHARGEBACK_SENDER",
+                                        "value": "${OPENSHIFT_CHARGEBACK_SENDER}"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_CHARGEBACK_ART",
+                                        "value": "${OPENSHIFT_CHARGEBACK_ART}"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_CHARGEBACK_CURRENCY",
+                                        "value": "${OPENSHIFT_CHARGEBACK_CURRENCY}"
+                                    },
+                                    {
+                                        "name": "DOCKER_REPOSITORY",
+                                        "value": "${DOCKER_REPOSITORY}"
+                                    },
+                                    {
+                                        "name": "MAIL_SERVER",
+                                        "value": "${MAIL_SERVER}"
+                                    },
+                                    {
+                                        "name": "MAIL_ADMIN_SENDER",
+                                        "value": "${MAIL_ADMIN_SENDER}"
+                                    },
+                                    {
+                                        "name": "MAIL_NEW_PROJECT_RECIPIENT",
+                                        "value": "${MAIL_NEW_PROJECT_RECIPIENT}"
+                                    }
+                                ],
+                                "livenessProbe": {
+                                    "tcpSocket": {
+                                        "port": 8000
+                                    },
+                                    "initialDelaySeconds": 2,
+                                    "timeoutSeconds": 20,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 3
+                                },
+                                "readinessProbe": {
+                                    "tcpSocket": {
+                                        "port": 8000
+                                    },
+                                    "initialDelaySeconds": 2,
+                                    "timeoutSeconds": 10,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 3
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "Always",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/etc/config.yaml",
+                                        "name": "volume-config",
+                                        "subPath": "config.yaml"
+                                    }
+                                ]
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {},
+                        "volumes": [
+                            {
+                                "configMap": {
+                                    "name": "config"
+                                },
+                                "name": "volume-config"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "ssp-backend",
+                "annotations": {
+                    "haproxy.router.openshift.io/timeout": "5m"
+                }
+            },
+            "spec": {
+                "host": "${APP_ROUTE}",
+                "to": {
+                    "kind": "Service",
+                    "name": "ssp-backend",
+                    "weight": 100
+                },
+                "port": {
+                    "targetPort": "8000-tcp"
+                },
+                "tls": {
+                    "termination": "edge",
+                    "insecureEdgeTerminationPolicy": "Redirect"
+                }
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "ssp-backend",
+                "labels": {
+                    "app": "ssp-backend"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "8000-tcp",
+                        "protocol": "TCP",
+                        "port": 8000,
+                        "targetPort": 8000
+                    }
+                ],
+                "selector": {
+                    "deploymentconfig": "ssp-backend"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            }
+        },
+        {
+            "kind": "ConfigMap",
+            "apiVersion": "v1",
+            "data": {
+                "config.yaml": "# configuration in yaml (see config.yaml.example)"
+            },
+            "metadata": {
+                "name": "config"
+            }
+        }
+    ],
+    "parameters": [
+        {
+            "name": "APP_ROUTE",
+            "description": "The route that Openshift exposes"
+        },
+        {
+            "name": "DOCKER_IMAGE",
+            "description": "The docker image and version (user/image:tag)",
+            "value": "schweizerischebundesbahnen/ssp-backend:v1.4.5",
+            "required": true
+        },
+        {
+            "name": "TZ",
+            "description": "The timezone",
+            "value": "Europe/Zurich"
+        },
+        {
+            "name": "MAX_QUOTA_CPU",
+            "description": "How many CPU can a user assign to his project",
+            "value": "100",
+            "required": true
+        },
+        {
+            "name": "MAX_QUOTA_MEMORY",
+            "description": "How many GB memory can a user assign to his project",
+            "value": "100",
+            "required": true
+        },
+        {
+            "name": "MAX_VOLUME_GB",
+            "description": "The amount of storage in GB that a user can order",
+            "value": "100",
+            "required": true
+        },
+        {
+            "name": "GIN_MODE",
+            "description": "Mode of the Webframework (debug/release)",
+            "value": "debug",
+            "required": true
+        },
+        {
+            "name": "LDAP_URL",
+            "description": "Your LDAP url",
+            "required": true
+        },
+        {
+            "name": "LDAP_BIND_DN",
+            "description": "LDAP Bind",
+            "required": true
+        },
+        {
+            "name": "LDAP_BIND_CRED",
+            "description": "LDAP Credentials",
+            "required": true
+        },
+        {
+            "name": "LDAP_SEARCH_BASE",
+            "description": "LDAP Search Base"
+        },
+        {
+            "name": "LDAP_FILTER",
+            "description": "LDAP Filter",
+            "value": "(uid=%s)",
+            "required": true
+        },
+        {
+            "name": "SESSION_KEY",
+            "description": "A secret password to encrypt session information",
+            "generate": "expression",
+            "from": "[a-zA-Z0-9]{40}",
+            "required": true
+        },
+        {
+            "name": "AWS_PROD_ACCESS_KEY_ID",
+            "description": "AWS Access Key ID to manage AWS ressources for production buckets",
+            "required": true
+        },
+        {
+            "name": "AWS_PROD_SECRET_ACCESS_KEY",
+            "description": "AWS Secret Access Key to manage AWS ressources for production buckets",
+            "required": true
+        },
+        {
+            "name": "AWS_NONPROD_ACCESS_KEY_ID",
+            "description": "AWS Access Key ID to manage AWS ressources for development buckets",
+            "required": true
+        },
+        {
+            "name": "AWS_NONPROD_SECRET_ACCESS_KEY",
+            "description": "AWS Secret Access Key to manage AWS ressources for development buckets",
+            "required": true
+        },
+        {
+            "name": "AWS_S3_BUCKET_PREFIX",
+            "description": "Prefix for all generated S3 buckets",
+            "required": true
+        },
+        {
+            "name": "AWS_REGION",
+            "description": "Region for all the aws artifacts",
+            "value": "eu-central-1",
+            "required": true
+        },
+        {
+            "name": "SEMATEXT_API_TOKEN",
+            "description": "Admin token for Sematext Logsene Apps",
+            "required": true
+        },
+        {
+            "name": "SEMATEXT_BASE_URL",
+            "description": "Base url for Sematext",
+            "value": "https://apps.eu.sematext.com/",
+            "required": true
+        },
+        {
+            "name": "LOGSENE_DISCOUNTCODE",
+            "description": "Discount code for Sematext"
+        },
+        {
+            "name": "JENKINS_URL",
+            "description": "The url (with protocol) of the Jenkins server",
+            "required": true
+        },
+        {
+            "name": "WZUBACKEND_URL",
+            "description": "The url (with protocol) of the WZU Backend",
+            "required": true
+        },
+        {
+            "name": "WZUBACKEND_SECRET",
+            "description": "The secret (password) of the WZU Backend",
+            "required": true
+        },
+        {
+            "name": "AWS_NONPROD_LOGIN_URL",
+            "description": "The console url (with protocol) of the AWS nonprod account"
+        },
+        {
+            "name": "AWS_PROD_LOGIN_URL",
+            "description": "The console url (with protocol) of the AWS prod account"
+        },
+        {
+            "name": "NEWRELIC_API_TOKEN",
+            "description": "Token to access the Newrelic-API",
+            "required": true
+        },
+        {
+            "name": "NEWRELIC_API_ACCOUNT",
+            "description": "Account to access the Newrelic-API",
+            "required": true
+        },
+        {
+            "name": "OPENSHIFT_CHARGEBACK_SENDER",
+            "description": "Value for Sender in OpenShift chargeback reports",
+            "required": true
+        },
+        {
+            "name": "OPENSHIFT_CHARGEBACK_ART",
+            "description": "Value for Kostenart in OpenShift chargeback reports",
+            "required": true
+        },
+        {
+            "name": "OPENSHIFT_CHARGEBACK_CURRENCY",
+            "description": "Value for Währung in OpenShift chargeback reports",
+            "value": "CHF",
+            "required": true
+        },
+        {
+            "name": "DOCKER_REPOSITORY",
+            "description": "Default Docker repository (e.g. for the Pull-Secret)",
+            "value": "docker.bin.sbb.ch",
+            "required": true
+        },
+        {
+            "name": "MAIL_SERVER",
+            "description": "SMTP server for sending e-mails."
+        },
+        {
+            "name": "MAIL_ADMIN_SENDER",
+            "description": "E-mail address from which e-mails are sent."
+        },
+        {
+            "name": "MAIL_NEW_PROJECT_RECIPIENT",
+            "description": "E-mail address for the new project notification."
+        }
+    ]
+}

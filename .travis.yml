@@ -1,0 +1,25 @@
+language: go
+go:
+- 1.11.x
+
+env:
+- GO111MODULE=on
+
+script:
+- go get -v ./...
+- TRAVIS=true go test -v ./...
+- diff -u <(echo -n) <(gofmt -d -s .)
+- mkdir dist
+- cp $GOPATH/bin/glusterapi dist/
+- cp glusterapi/install/glusterapi.service dist/
+- tar -zcvf gluster-api.tar.gz dist/
+
+deploy:
+  provider: releases
+  api_key:
+    secure: aUPqkwrlK4xps/e9NipGHQ/9UxuHNS2ygXiDV6f3+H4als67/yzEJ54CIKmY2B7WseA86HHtKh56Eh4W56a+uM/DJAxsPfS8c8igpXy8YVe2g4LwZ3u1HGrsfBcf5+X0X+o8K71I2OFiy7gkZGXKAf45yQLATn+O9dwJrxy119JkCqGPrg6LJ8AEi7btTAARlyRLgYoudBmuMjUifO+YDE4MMKBTPx1g84wCL5z+Eu6JFzUEsiE/aNvfHr7hTjCBdhZW9UseOcYAR8XJ5zksRj1rHP6rbQ2vkm7fmlSAnLypdD7my4jnSgJ4wzj9Qg4OrlNVW735Y5FuT9RmOWKzrk1X7fNavdNjyhmZZO86bb02iEzS3igCKAqX7+0KJdj7ZUTYLCGoFoW6HU6sotQtWPOVPcXjt+Ozpo4F4iKiaK5TI3aS8TRXZAdwHE27ZBbly6cwtUSQ5xknB9xVlLhuwghqvesELT6ALJfwe6h0Ou4g6vn4lJLwu4PxmL6vTUZ8CGLGVu+8rfBHcZp8SROzzp/F9SSgjkdUY0p29eHuHi1TfA5dSJooZ4Lul/FhkDe4tp7waqP3b7VA33xLHkY9alE8An6xh/x0gCA91vwgm0Ib39l86aNmBdAJlusxkTWoB/B1rpu45MXsw567zX/oX1sArr9e3LNxzUujr+v4yRY=
+  file:
+  - gluster-api.tar.gz
+  skip_cleanup: true
+  on:
+    tags: true
